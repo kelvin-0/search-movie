@@ -1,9 +1,15 @@
+import Jumbotron from "@/components/Jumbotron"
+import MyFooter from "@/components/MyFooter"
 import MyNavbar from "@/components/MyNavbar"
 
 export default function Home({data}) {
   console.log(data)
  return (
+  <div className="min-h-screen flex flex-col">
     <MyNavbar />
+    <Jumbotron />
+    <MyFooter />
+  </div>
  )
 }
 
