@@ -8,6 +8,13 @@ export default function Home({data}) {
   <div className="min-h-screen flex flex-col max-w-[1350px] mx-auto">
     <MyNavbar />
     <Jumbotron />
+    <div className="flex gap-2 p-4 flex-wrap">
+    {data?.results && (
+      data.results.map(x => {
+        return <img key={x.id} width="200"  src={`https://image.tmdb.org/t/p/original/${x.poster_path}`}/>
+      })
+    )}
+    </div>
     <MyFooter />
   </div>
  )
