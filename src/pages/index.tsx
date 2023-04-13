@@ -5,7 +5,7 @@ import MyNavbar from "@/components/MyNavbar"
 export default function Home({data}) {
   console.log(data)
  return (
-  <div className="min-h-screen flex flex-col">
+  <div className="min-h-screen flex flex-col max-w-[1350px] mx-auto">
     <MyNavbar />
     <Jumbotron />
     <MyFooter />
