@@ -1,5 +1,5 @@
-export default function MovieList({movies, category}){
-    const movieList = movies.map(movie => {
+export default function MovieList({movies, category}: any){
+    const movieList = movies.map((movie: any) => {
         return (
                 <img key={movie.id} className="snap-center rounded-md object-cover cursor-pointer" width="150" height="200" src={`https://image.tmdb.org/t/p/original/${movie.poster_path}`}/>
         )

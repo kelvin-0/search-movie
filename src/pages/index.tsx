@@ -6,7 +6,7 @@ import MyNavbar from "@/components/MyNavbar"
 const categories = ["upcoming", "top_rated", "popular"]
 const fetchCategories = categories.map(category => fetch(`${process.env.API_PATH}movie/${category}?api_key=${process.env.API_KEY}&language=en-US&page=1`))
 
-export default function Home({upcoming, topRated, popular}) {
+export default function Home({upcoming, topRated, popular}: any) {
  return (
   <div className="min-h-screen flex flex-col max-w-[1350px] mx-auto">
     <MyNavbar />
