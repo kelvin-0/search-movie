@@ -1,19 +1,29 @@
 import Jumbotron from "@/components/Jumbotron"
+import MovieList from "@/components/MovieList"
 import MyFooter from "@/components/MyFooter"
 import MyNavbar from "@/components/MyNavbar"
 
-export default function Home({data}) {
-  console.log(data)
+const categories = ["upcoming", "top_rated", "popular"]
+const fetchCategories = categories.map(category => fetch(`${process.env.API_PATH}movie/${category}?api_key=${process.env.API_KEY}&language=en-US&page=1`))
+
+export default function Home({upcoming, topRated, popular}) {
  return (
   <div className="min-h-screen flex flex-col max-w-[1350px] mx-auto">
     <MyNavbar />
     <Jumbotron />
     <div className="flex gap-2 p-4 flex-wrap">
-    {data?.results && (
-      data.results.map(x => {
-        return <img key={x.id} width="200"  src={`https://image.tmdb.org/t/p/original/${x.poster_path}`}/>
-      })
-    )}
+    {upcoming?.results && (
+      <MovieList movies={upcoming.results} category={"Upcoming"}/>
+      )
+    }
+    {topRated?.results && (
+      <MovieList movies={topRated.results} category={"Top Rated"}/>
+      )
+    }
+   {popular?.results && (
+      <MovieList movies={popular.results} category={"Popular"}/>
+      )
+    }
     </div>
     <MyFooter />
   </div>
@@ -21,12 +31,18 @@ export default function Home({data}) {
 }
 
 export async function getStaticProps(){
-  const res = await fetch(`${process.env.API_PATH}movie/upcoming?api_key=${process.env.API_KEY}&language=en-US&page=1`)
-  const data = await res.json()
+  const [upcomingRes, topRatedRes, popularRes] = await Promise.all(fetchCategories)
+  const [upcoming, topRated, popular] = await Promise.all([
+    upcomingRes.json(),
+    topRatedRes.json(),
+    popularRes.json()
+  ])
 
   return {
     props: {
-      data
+      upcoming,
+      topRated,
+      popular
     }
   }
 }
