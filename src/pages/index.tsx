@@ -2,13 +2,6 @@ import Layout from "@/components/Layout";
 import Jumbotron from "@/components/Jumbotron";
 import MovieList from "@/components/MovieList";
 
-const categories = ["upcoming", "top_rated", "popular"];
-const fetchCategories = categories.map((category) =>
-  fetch(
-    `${process.env.API_PATH}movie/${category}?api_key=${process.env.API_KEY}&language=en-US&page=1`
-  )
-);
-
 export default function Home({ upcoming, topRated, popular }: any) {
   return (
     <Layout>
@@ -29,6 +22,12 @@ export default function Home({ upcoming, topRated, popular }: any) {
 }
 
 export async function getStaticProps() {
+  const categories = ["upcoming", "top_rated", "popular"];
+  const fetchCategories = categories.map((category) =>
+    fetch(
+      `${process.env.API_PATH}movie/${category}?api_key=${process.env.API_KEY}&language=en-US&page=1`
+    )
+  );
   const [upcomingRes, topRatedRes, popularRes] = await Promise.all(
     fetchCategories
   );
