@@ -30,7 +30,7 @@ const MyImage: React.FC<MovieProp> = ({id, title, poster_path}) => {
           className="snap-center rounded-md object-cover cursor-pointer"
           fill
           src={`https://image.tmdb.org/t/p/w440_and_h660_face/${poster_path}`}
-          alt={`${title} movie poster`}
+          alt={`Movie poster of "${title}"`}
           sizes="99vw"
         />
     </div>
