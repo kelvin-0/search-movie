@@ -31,7 +31,7 @@ const MyImage: React.FC<MovieProp> = ({id, title, poster_path}) => {
           fill
           src={`https://image.tmdb.org/t/p/w440_and_h660_face/${poster_path}`}
           alt={`${title} movie poster`}
-          sizes="100vw"
+          sizes="99vw"
         />
     </div>
   );
