@@ -39,7 +39,7 @@ const Search: React.FC<any> = ({ searchResults, text, page, language }) => {
                 searchResults.results.map((m: any) => {
 
                     return (
-                      <Link key={m.id} href={`movie/${m.id}`}>
+                      <Link key={m.id} href={`movies/${m.id}`}>
                         <div className="overflow-hidden flex w-96 h-[200px] bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
                           <MyImage
                             id={m.id}
