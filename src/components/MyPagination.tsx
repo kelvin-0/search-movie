@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { usePagination, DOTS } from "./usePagination";
+import { usePagination, DOTS } from "@/hooks/usePagination";
 
 const MyPagination = (props: any) => {
   const {

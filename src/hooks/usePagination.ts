@@ -16,7 +16,7 @@ export const usePagination = ({
             currentPage
         })
         const totalPageCount = totalPage 
-         // Pages count is determined as siblingCount + firstPage + lastPage + currentPage + 2*DOTS
+         // Pages count is deter  mined as siblingCount + firstPage + lastPage + currentPage + 2*DOTS
         const totalPageNumbers = siblingCount + 5 
         /*
         Case 1:

@@ -1,10 +1,10 @@
 import Layout from "@/components/Layout";
 import MyImage from "@/components/MyImage";
 import MyPagination from "@/components/MyPagination";
+import { GetServerSideProps } from "next";
 import Link from "next/link";
-import { useState } from "react";
 
-export async function getServerSideProps(context: any) {
+export const getServerSideProps: GetServerSideProps = async(context)=>{
   const {
     query: { text, page, language },
   } = context;

@@ -1,27 +1,9 @@
 import Layout from "@/components/Layout";
 import Jumbotron from "@/components/Jumbotron";
 import MovieList from "@/components/MovieList";
+import { GetServerSideProps } from "next";
 
-export default function Home({ upcoming, topRated, popular }: any) {
-  return (
-    <Layout>
-      <Jumbotron />
-      <div className="flex gap-2 p-4 flex-wrap">
-        {upcoming?.results && (
-          <MovieList movies={upcoming.results} category={"Upcoming"} />
-        )}
-        {topRated?.results && (
-          <MovieList movies={topRated.results} category={"Top Rated"} />
-        )}
-        {popular?.results && (
-          <MovieList movies={popular.results} category={"Popular"} />
-        )}
-      </div>
-    </Layout>
-  );
-}
-
-export async function getStaticProps() {
+export const getServerSideProps: GetServerSideProps = async()=>{
   const categories = ["upcoming", "top_rated", "popular"];
   const fetchCategories = categories.map((category) =>
     fetch(
@@ -45,3 +27,25 @@ export async function getStaticProps() {
     },
   };
 }
+
+
+const Home: React.FC<any> = ({ upcoming, topRated, popular })=>{
+  return (
+    <Layout>
+      <Jumbotron />
+      <div className="flex gap-2 p-4 flex-wrap">
+        {upcoming?.results && (
+          <MovieList movies={upcoming.results} category={"Upcoming"} />
+        )}
+        {topRated?.results && (
+          <MovieList movies={topRated.results} category={"Top Rated"} />
+        )}
+        {popular?.results && (
+          <MovieList movies={popular.results} category={"Popular"} />
+        )}
+      </div>
+    </Layout>
+  );
+}
+
+export default Home
