@@ -4,10 +4,15 @@ import MyPagination from "@/components/MyPagination";
 import { GetServerSideProps } from "next";
 import Link from "next/link";
 
-export const getServerSideProps: GetServerSideProps = async(context)=>{
+export const getServerSideProps: GetServerSideProps = async (context) => {
   const {
-    query: { text, page, language },
+    query: { text, page = "1", language = "en-us"},
   } = context;
+  if (!text) {
+    return {
+      props: {},
+    };
+  }
   const fetchSearchPs = await fetch(
     `${process.env.API_PATH}search/movie?api_key=${process.env.API_KEY}&language=${language}&page=${page}&query=${text}`
   );
@@ -17,19 +22,25 @@ export const getServerSideProps: GetServerSideProps = async(context)=>{
       searchResults,
       text,
       page,
-      language
+      language,
     },
   };
-}
+};
 
-const Search: React.FC<any> = ({ searchResults, text, page, language }) => {
+const Search: React.FC<any> = ({
+  searchResults,
+  text,
+  page,
+  language,
+  error,
+}) => {
   const resultsLength = searchResults?.results?.length;
-  
+
   return (
     <Layout>
       {resultsLength ? (
         <>
-          <h2 className="text-2xl font-semibold text-center p-3 text-lime-100 bg-gray-900">
+          <h2 className="text-2xl font-semibold text-center p-3 dark:text-slate-100 text-slate-950">
             Search Results for &ldquo;{text}&ldquo;
           </h2>
           <div className="flex">
@@ -37,38 +48,41 @@ const Search: React.FC<any> = ({ searchResults, text, page, language }) => {
             <div className="flex flex-wrap justify-center gap-2">
               {searchResults.results &&
                 searchResults.results.map((m: any) => {
-
-                    return (
-                      <Link key={m.id} href={`movies/${m.id}`}>
-                        <div className="overflow-hidden flex w-96 h-[200px] bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-                          <MyImage
-                            id={m.id}
-                            title={m.title}
-                            poster_path={m.poster_path}
-                          />
-                          <div className="p-5 ">
-                            <h5 className="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">
-                              {m.title}
-                            </h5>
-                            <p className="mb-3 text-sm  block font-normal text-gray-700 dark:text-gray-400">
-                              {m.overview.length > 100
-                                ? m.overview.slice(0, 100) + "..."
-                                : m.overview}
-                            </p>
-                          </div>
+                  return (
+                    <Link key={m.id} href={`movies/${m.id}`}>
+                      <div className="overflow-hidden flex flex-col sm:flex-row w-4/5 mx-auto items-center sm:w-96 sm:h-[200px] bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+                        <MyImage
+                          id={m.id}
+                          title={m.title}
+                          poster_path={m.poster_path}
+                        />
+                        <div className="p-5 ">
+                          <h5 className="mb-2 text-center sm:text-left text-xl font-bold tracking-tight text-gray-900 dark:text-white">
+                            {m.title}
+                          </h5>
+                          <p className="mb-3 text-sm  block font-normal text-gray-700 dark:text-gray-400">
+                            {m.overview.length > 100
+                              ? m.overview.slice(0, 100) + "..."
+                              : m.overview}
+                          </p>
                         </div>
-                      </Link>
-                    );
-                  
+                      </div>
+                    </Link>
+                  );
                 })}
             </div>
           </div>
-          <MyPagination text={text} language={language} currentPage={Number(page)} totalPage={searchResults.total_pages} />
+          <MyPagination
+            text={text}
+            language={language}
+            currentPage={Number(page)}
+            totalPage={searchResults.total_pages}
+          />
         </>
       ) : (
         <h2 className="text-2xl font-semibold text-center p-3 text-lime-100 bg-gray-900">
           No Search Results
-      </h2>
+        </h2>
       )}
     </Layout>
   );

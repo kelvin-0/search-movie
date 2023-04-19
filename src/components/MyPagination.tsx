@@ -23,8 +23,8 @@ const MyPagination = (props: any) => {
 
   return (
     <nav aria-label="Page navigation example" className="mx-auto my-10">
-      <ul className="inline-flex items-center -space-x-px ">
-        <li>
+      <ul className="inline-flex items-center -space-x-px flex-wrap">
+        <li className="mt-4">
           {Number(currentPage) === 1 ? (
             <a
               aria-disabled
@@ -72,7 +72,7 @@ const MyPagination = (props: any) => {
         {paginationRange?.map((pageNumber, id) => {
           if (pageNumber === DOTS) {
             return (
-              <li key={pageNumber + id}>
+              <li key={pageNumber + id} className="mt-4">
                 <span className="px-3 py-2 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
                   &#8230;
                 </span>
@@ -81,7 +81,7 @@ const MyPagination = (props: any) => {
           }
 
           return (
-            <li key={pageNumber}>
+            <li key={pageNumber} className="mt-4">
               <Link
                 href={`search/?text=${text}&page=${pageNumber}&language=${language}`}
                 className={
@@ -95,7 +95,7 @@ const MyPagination = (props: any) => {
             </li>
           );
         })}
-        <li>
+        <li className="mt-4">
           {Number(currentPage) === totalPage ? (
             <a
               aria-disabled
