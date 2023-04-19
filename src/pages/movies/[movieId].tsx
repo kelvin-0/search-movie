@@ -2,7 +2,6 @@ import { GetServerSideProps } from "next";
 import Layout from "@/components/Layout";
 import MyImage from "@/components/MyImage";
 import BackgroundImage from "@/components/BackgroundImage";
-import Label from "@/components/Label";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { params } = context;
@@ -44,15 +43,15 @@ const Movie: React.FC<any> = ({ searchResults }) => {
             poster_path={searchResults.poster_path}
           />
           <div className="text-gray-300 max-w-2xl">
-            <h1 className="text-yellow-200 text-center md:text-left text-3xl font-bold mb-3">
+            <h1 className="text-yellow-200 text-center md:text-left text-2xl sm:text-3xl font-bold mb-3">
               {searchResults.original_title}{" "}
               <span>({releasedDate.getFullYear()})</span>
             </h1>
-            <div className="flex items-center gap-5 mb-6 justify-center md:justify-start">
+            <div className="flex items-center gap-5 mb-6 justify-center text-base sm:text-lg md:justify-start flex-wrap">
               <span className="border p-1 rounded-sm">
                 {searchResults.adults ? "18+" : "13+"}
               </span>
-              <span className="flex gap-2">
+              <span className="flex gap-2 items-center">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -70,7 +69,7 @@ const Movie: React.FC<any> = ({ searchResults }) => {
                 {releasedDate.getMonth()}/{releasedDate.getDate()}/
                 {releasedDate.getFullYear()}
               </span>
-              <span className="flex gap-2">
+              <span className="flex gap-2 items-center">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -94,21 +93,21 @@ const Movie: React.FC<any> = ({ searchResults }) => {
 
               </span>
             </div>
-            <p className="text-2xl font-bold text-gray-500 italic mb-6 text-center md:text-left">
+            <p className="text-xl sm:text-2xl font-bold text-gray-500 italic mb-6 text-center md:text-left">
               &quot;{searchResults.tagline}&quot;
             </p>
-            <h2 className="text-xl font-semibold">Overview</h2>
-            <p className="text-base mb-3 text-justify">{searchResults.overview}</p>
-            <div className="flex justify-between gap-2">
+            <h2 className="text-lg sm:text-xl font-semibold">Overview</h2>
+            <p className="text-sm sm:text-base mb-3 text-justify">{searchResults.overview}</p>
+            <div className="flex justify-between gap-2 flex-wrap text-sm sm:text-base">
             <span className="font-bold">
               Genres:
-              <p>
+              <p className="font-thin">
               {genres.join(" ,")}
             </p>
             </span>
             <span className="font-bold">
               Languages:
-              <p>
+              <p className="font-thin">
               {languages.join(" ,")}
             </p>
             </span>

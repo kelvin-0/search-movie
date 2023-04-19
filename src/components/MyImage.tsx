@@ -7,14 +7,14 @@ type MovieProp = {
     isLarge?: Boolean
 }
 const MyImage: React.FC<MovieProp> = ({id, title, poster_path, isLarge}) => {
-  let sizeClassname: String = isLarge ? "w-[300px] h-[450px]" : "w-[130px] h-[200px]"
+  let sizeClassname: string = isLarge ? "w-[130px] h-[200px] sm:w-[300px] sm:h-[450px]" : "w-[130px] h-[200px]"
   return (
     <div key={id} className={`shrink-0 relative overflow-hidden ${sizeClassname}`} >
       <div
         role="status"
-        className="space-y-8 animate-pulse md:space-y-0 md:space-x-8 md:flex md:items-center w-full h-full"
+        className="space-y-8 animate-pulse md:space-y-0 md:space-x-8 md:flex md:items-center w-[98%] mx-auto h-full"
       >
-        <div className="flex h-full items-center justify-center w-full h-48 bg-gray-300 rounded sm:w-96 dark:bg-gray-700">
+        <div className="rounded-md flex h-[98%] my-auto items-center justify-center  bg-gray-300 sm:w-96 dark:bg-gray-700">
           <svg
             className="w-12 h-12 text-gray-200"
             xmlns="http://www.w3.org/2000/svg"

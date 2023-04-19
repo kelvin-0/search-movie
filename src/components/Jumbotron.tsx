@@ -5,7 +5,7 @@ import { useRef } from "react";
 export default function Jumbotron() {
   const searchRef = useRef<HTMLInputElement | null>(null)
   return (
-    <section className="bg-center bg-no-repeat bg-[url('https://flowbite.s3.amazonaws.com/docs/jumbotron/conference.jpg')] bg-gray-700 bg-blend-multiply">
+    <section className="pt-32 bg-center bg-no-repeat bg-[url('https://flowbite.s3.amazonaws.com/docs/jumbotron/conference.jpg')] bg-gray-700 bg-blend-multiply">
       <div className="px-4 mx-auto max-w-screen-xl text-center py-14 md:py-24 ">
         <h1 className="mb-4 text-4xl font-extrabold tracking-tight leading-none text-white md:text-5xl lg:text-6xl">
           Temukan Film Favorit Anda Berikutnya dengan Hanya Beberapa Klik!
