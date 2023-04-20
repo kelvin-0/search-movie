@@ -1,25 +1,25 @@
-import { useState, useEffect } from "react";
-import { useTheme } from "next-themes";
+import { useState, useEffect } from 'react'
+import { useTheme } from 'next-themes'
 const ThemeSwitch = () => {
-  const [mounted, setMounted] = useState(false);
-  const { theme, setTheme } = useTheme();
+  const [mounted, setMounted] = useState(false)
+  const { theme, setTheme } = useTheme()
   useEffect(() => {
-    setMounted(true);
-  }, []);
+    setMounted(true)
+  }, [])
 
   if (!mounted) {
-    return null;
+    return null
   }
   return (
     <button
-      onClick={() => setTheme(theme === "light" ? "dark" : "light")}
+      onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}
       type="button"
       data-collapse-toggle="navbar-search"
       aria-controls="toggle-mode"
       aria-expanded="false"
-      className="dark:hover:bg-slate-600 dark:hover:text-slate-950 rounded-full px-3 ring-1  ring-gray-200 text-gray-500 dark:text-gray-400 hover:bg-gray-100 hover:text-slate-950  rounded-lg text-sm  mr-1"
+      className="p-2.5 dark:hover:bg-slate-600 dark:hover:text-slate-950 rounded-full px-3 ring-1  ring-gray-200 text-gray-500 dark:text-gray-400 hover:bg-gray-100 hover:text-slate-950  rounded-lg text-sm  mr-1"
     >
-      {theme === "dark" ? (
+      {theme === 'dark' ? (
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
@@ -58,6 +58,6 @@ const ThemeSwitch = () => {
     //   <option value="dark">Dark</option>
     //   <option value="light">Light</option>
     // </select>
-  );
-};
-export default ThemeSwitch;
+  )
+}
+export default ThemeSwitch

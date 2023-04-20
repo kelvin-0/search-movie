@@ -1,5 +1,5 @@
-import Link from "next/link";
-import { usePagination, DOTS } from "@/hooks/usePagination";
+import Link from 'next/link'
+import { usePagination, DOTS } from '@/hooks/usePagination'
 
 const MyPagination = (props: any) => {
   const {
@@ -9,16 +9,16 @@ const MyPagination = (props: any) => {
     pageSize = 20,
     text,
     language,
-  } = props;
+  } = props
   const paginationRange = usePagination({
     currentPage,
     totalPage,
     siblingCount,
     pageSize,
-  });
+  })
   // If there are less than 2 times in pagination range we shall not render the component
-  if(paginationRange?.length === 1){
-    return null;
+  if (paginationRange?.length === 1) {
+    return null
   }
 
   return (
@@ -77,7 +77,7 @@ const MyPagination = (props: any) => {
                   &#8230;
                 </span>
               </li>
-            );
+            )
           }
 
           return (
@@ -86,14 +86,14 @@ const MyPagination = (props: any) => {
                 href={`search/?text=${text}&page=${pageNumber}&language=${language}`}
                 className={
                   pageNumber === Number(currentPage)
-                    ? "z-10 px-3 py-2 leading-tight text-blue-600 border border-blue-300 bg-blue-50 hover:bg-blue-100 hover:text-blue-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white"
-                    : "px-3 py-2 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                    ? 'z-10 px-3 py-2 leading-tight text-blue-600 border border-blue-300 bg-blue-50 hover:bg-blue-100 hover:text-blue-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white'
+                    : 'px-3 py-2 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white'
                 }
               >
                 {pageNumber}
               </Link>
             </li>
-          );
+          )
         })}
         <li className="mt-4">
           {Number(currentPage) === totalPage ? (
@@ -142,7 +142,7 @@ const MyPagination = (props: any) => {
         </li>
       </ul>
     </nav>
-  );
-};
+  )
+}
 
-export default MyPagination;
+export default MyPagination

@@ -2,15 +2,15 @@
 const nextConfig = {
   reactStrictMode: true,
   images: {
-    remotePatterns:[
+    remotePatterns: [
       {
-        protocol: "https",
-        hostname: "image.tmdb.org",
-        port: "",
-        pathname: "**"
-      }
-    ]
-  }
+        protocol: 'https',
+        hostname: 'image.tmdb.org',
+        port: '',
+        pathname: '**',
+      },
+    ],
+  },
 }
 
 module.exports = nextConfig

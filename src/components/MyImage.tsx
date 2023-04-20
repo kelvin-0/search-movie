@@ -1,15 +1,20 @@
-import Image from "next/image";
+import Image from 'next/image'
 
 type MovieProp = {
-    id: string,
-    title: string,
-    poster_path: string,
-    isLarge?: Boolean
+  id: string
+  title: string
+  poster_path: string
+  isLarge?: Boolean
 }
-const MyImage: React.FC<MovieProp> = ({id, title, poster_path, isLarge}) => {
-  let sizeClassname: string = isLarge ? "w-[130px] h-[200px] sm:w-[300px] sm:h-[450px]" : "w-[130px] h-[200px]"
+const MyImage: React.FC<MovieProp> = ({ id, title, poster_path, isLarge }) => {
+  let sizeClassname: string = isLarge
+    ? 'w-[130px] h-[200px] sm:w-[300px] sm:h-[450px]'
+    : 'w-[130px] h-[200px]'
   return (
-    <div key={id} className={`shrink-0 relative overflow-hidden ${sizeClassname}`} >
+    <div
+      key={id}
+      className={`shrink-0 relative overflow-hidden ${sizeClassname}`}
+    >
       <div
         role="status"
         className="space-y-8 animate-pulse md:space-y-0 md:space-x-8 md:flex md:items-center w-[98%] mx-auto h-full"
@@ -29,13 +34,15 @@ const MyImage: React.FC<MovieProp> = ({id, title, poster_path, isLarge}) => {
         <span className="sr-only">Loading...</span>
       </div>
       <Image
-          className="snap-center rounded-md object-cover cursor-pointer"
-          fill
-          src={`https://image.tmdb.org/t/p/${isLarge ? "original" : "w440_and_h660_face"}/${poster_path}`}
-          alt={`Movie poster of "${title}"`}
-          sizes="99vw"
-        />
+        className="snap-center rounded-md object-cover cursor-pointer"
+        fill
+        src={`https://image.tmdb.org/t/p/${
+          isLarge ? 'original' : 'w440_and_h660_face'
+        }/${poster_path}`}
+        alt={`Movie poster of "${title}"`}
+        sizes="99vw"
+      />
     </div>
-  );
-};
+  )
+}
 export default MyImage
