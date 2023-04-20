@@ -17,7 +17,7 @@ const ThemeSwitch = () => {
       data-collapse-toggle="navbar-search"
       aria-controls="toggle-mode"
       aria-expanded="false"
-      className="p-2.5 dark:hover:bg-slate-600 dark:hover:text-slate-950 rounded-full px-3 ring-1  ring-gray-200 text-gray-500 dark:text-gray-400 hover:bg-gray-100 hover:text-slate-950  rounded-lg text-sm  mr-1"
+      className="p-2.5 rounded-full px-3 border text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-950 hover:text-slate-950  rounded-lg text-sm  mr-1 border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-950 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
     >
       {theme === 'dark' ? (
         <svg

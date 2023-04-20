@@ -7,7 +7,7 @@ import BackgroundImage from '@/components/BackgroundImage'
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { params } = context
   const fetchMovie = await fetch(
-    `${process.env.API_PATH}/movie/${params?.movieId}?api_key=${process.env.API_KEY}&language=en-US`,
+    `${process.env.NEXT_PUBLIC_API_PATH}/movie/${params?.movieId}?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US`,
   )
   const searchResults = await fetchMovie.json()
   return {

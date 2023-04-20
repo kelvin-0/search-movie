@@ -6,7 +6,7 @@ import Search from './Search'
 export default function MyNavbar() {
   const [quickSearchInput, setQuickSearchInput] = useState<string>('')
   return (
-    <nav className="max-w-[1350px] sticky left-0 z-20 w-full top-0 bg-white border-gray-200 dark:bg-gray-900">
+    <nav className="max-w-[1350px] sticky left-0 z-20 w-full top-0 bg-white border-gray-200 dark:bg-black">
       <div className="max-w-screen-xl flex flex-col sm:flex-row flex-wrap items-center justify-between mx-auto p-4">
         <Link href="/" className="flex items-center dark:text-white gap-3">
           {/* <Image

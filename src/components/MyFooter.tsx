@@ -11,7 +11,7 @@ import Image from 'next/image'
 
 export default function MyFooter() {
   return (
-    <Footer container={true} className="mt-auto">
+    <Footer container={true} className="mt-auto dark:bg-black">
       <div className="w-full">
         <div className="w-full justify-between md:flex ">
           <div className="flex items-center">

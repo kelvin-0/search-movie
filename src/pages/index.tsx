@@ -8,7 +8,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
   const categories = ['upcoming', 'top_rated', 'popular']
   const fetchCategories = categories.map((category) =>
     fetch(
-      `${process.env.API_PATH}movie/${category}?api_key=${process.env.API_KEY}&language=en-US&page=1`,
+      `${process.env.NEXT_PUBLIC_API_PATH}movie/${category}?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US&page=1`,
     ),
   )
   const [upcomingRes, topRatedRes, popularRes] = await Promise.all(

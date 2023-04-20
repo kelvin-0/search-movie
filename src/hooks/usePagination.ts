@@ -9,12 +9,6 @@ export const usePagination = ({
   currentPage,
 }: any) => {
   const paginationRange = useMemo(() => {
-    console.log({
-      totalPage,
-      pageSize,
-      siblingCount,
-      currentPage,
-    })
     const totalPageCount = totalPage
     // Pages count is deter  mined as siblingCount + firstPage + lastPage + currentPage + 2*DOTS
     const totalPageNumbers = siblingCount + 5
@@ -25,7 +19,6 @@ export const usePagination = ({
         */
     //
     if (totalPageNumbers >= totalPageCount) {
-      console.log('case 1')
       return range(1, totalPageCount)
     }
 
@@ -33,11 +26,6 @@ export const usePagination = ({
     	Calculate left and right sibling index and make sure they are within range 1 and totalPageCount
         */
     const leftSiblingIndex = Math.max(currentPage - siblingCount, 1)
-    console.log(
-      currentPage,
-      totalPageCount,
-      Math.min(currentPage + siblingCount, totalPageCount),
-    )
 
     const rightSiblingIndex = Math.min(
       currentPage + siblingCount,
@@ -56,7 +44,6 @@ export const usePagination = ({
     	Case 2: No left dots to show, but rights dots to be shown
      */
     if (!shouldShowLeftDots && shouldShowRightDots) {
-      console.log('case 2')
       let leftItemCount = 3 + 2 * siblingCount
       let leftRange = range(1, leftItemCount)
 
@@ -67,7 +54,6 @@ export const usePagination = ({
     	Case 3: No right dots to show, but left dots to be shown
     */
     if (shouldShowLeftDots && !shouldShowRightDots) {
-      console.log('case 3')
       let rightItemCount = 3 + 2 * siblingCount
       let rightRange = range(
         totalPageCount - rightItemCount + 1,
@@ -79,11 +65,10 @@ export const usePagination = ({
           Case 4: Both left and right dots to be shown
           */
     if (shouldShowLeftDots && shouldShowRightDots) {
-      console.log('case 4')
       let middleRange = range(leftSiblingIndex, rightSiblingIndex)
       return [firstPageIndex, DOTS, ...middleRange, DOTS, lastPageIndex]
     }
-  }, [totalPage, pageSize, siblingCount, currentPage])
+  }, [totalPage, siblingCount, currentPage])
   return paginationRange
 }
 

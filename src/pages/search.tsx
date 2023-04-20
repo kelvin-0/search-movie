@@ -1,3 +1,4 @@
+import Autocompletion from '@/components/Autocompletion'
 import Layout from '@/components/Layout'
 import MyImage from '@/components/MyImage'
 import MyPagination from '@/components/MyPagination'
@@ -15,7 +16,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     }
   }
   const fetchSearchPs = await fetch(
-    `${process.env.API_PATH}search/movie?api_key=${process.env.API_KEY}&language=${language}&page=${page}&query=${text}`,
+    `${process.env.NEXT_PUBLIC_API_PATH}search/movie?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=${language}&page=${page}&query=${text}`,
   )
   const searchResults = await fetchSearchPs.json()
   return {
@@ -47,6 +48,7 @@ const Search: React.FC<any> = ({
         />
       </Head>
       <Layout>
+        <Autocompletion />
         {resultsLength ? (
           <>
             <h2 className="text-2xl font-semibold text-center p-3 dark:text-slate-100 text-slate-950">
@@ -59,7 +61,7 @@ const Search: React.FC<any> = ({
                   searchResults.results.map((m: any) => {
                     return (
                       <Link key={m.id} href={`movies/${m.id}`}>
-                        <div className="overflow-hidden flex flex-col sm:flex-row w-4/5 mx-auto items-center sm:w-96 sm:h-[200px] bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+                        <div className="overflow-hidden flex flex-col sm:flex-row w-4/5 mx-auto items-center sm:w-96 sm:h-[200px] bg-white border border-gray-200 rounded-lg shadow dark:bg-black dark:border-gray-700">
                           <MyImage
                             id={m.id}
                             title={m.title}

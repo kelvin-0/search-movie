@@ -19,7 +19,7 @@ const BackgroundImage: React.FC<BgProp> = ({
 
   return (
     <div key={id} className={`shrink-0 relative w-full h-auto`}>
-      <div className="flex justify-center items-center bg-gray-900 relative w-full h-auto z-10 opacity-90 bg-white opacity-85 dark:bg-slate-800">
+      <div className="flex justify-center items-center  relative w-full h-auto z-10 opacity-90 bg-slate-50 opacity-85 dark:bg-slate-950">
         {children}
       </div>
       <Image
