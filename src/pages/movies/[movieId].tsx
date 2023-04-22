@@ -4,8 +4,15 @@ import Layout from '@/components/Layout'
 import MyImage from '@/components/MyImage'
 import BackgroundImage from '@/components/BackgroundImage'
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const { params } = context
+export const getServerSideProps: GetServerSideProps = async ({
+  req,
+  res,
+  params,
+}) => {
+  res.setHeader(
+    'Cache-Control',
+    'public, s-maxage=86400, stale-while-revalidate=59',
+  )
   const fetchMovie = await fetch(
     `${process.env.NEXT_PUBLIC_API_PATH}/movie/${params?.movieId}?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US`,
   )

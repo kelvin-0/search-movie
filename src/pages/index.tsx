@@ -4,7 +4,11 @@ import MovieList from '@/components/MovieList'
 import { GetServerSideProps } from 'next'
 import Head from 'next/head'
 
-export const getServerSideProps: GetServerSideProps = async () => {
+export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
+  res.setHeader(
+    'Cache-Control',
+    'public, s-maxage=86400, stale-while-revalidate=59',
+  )
   const categories = ['upcoming', 'top_rated', 'popular']
   const fetchCategories = categories.map((category) =>
     fetch(

@@ -6,10 +6,16 @@ import { GetServerSideProps } from 'next'
 import Head from 'next/head'
 import Link from 'next/link'
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const {
-    query: { text, page = '1', language = 'en-us' },
-  } = context
+export const getServerSideProps: GetServerSideProps = async ({
+  req,
+  res,
+  query,
+}) => {
+  res.setHeader(
+    'Cache-Control',
+    'public, s-maxage=86400, stale-while-revalidate=59',
+  )
+  const { text, page = '1', language = 'en-us' } = query
   if (!text) {
     return {
       props: {},

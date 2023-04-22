@@ -53,15 +53,19 @@ export default function MyFooter() {
             <div>
               <Footer.Title title="Follow us" />
               <Footer.LinkGroup col={true}>
-                <Footer.Link href="#">Github</Footer.Link>
-                <Footer.Link href="#">Discord</Footer.Link>
+                <Footer.Link href="https://github.com">Github</Footer.Link>
+                <Footer.Link href="https://discord.com">Discord</Footer.Link>
               </Footer.LinkGroup>
             </div>
             <div>
               <Footer.Title title="Legal" />
               <Footer.LinkGroup col={true}>
-                <Footer.Link href="#">Privacy Policy</Footer.Link>
-                <Footer.Link href="#">Terms & Conditions</Footer.Link>
+                <Footer.Link href="https://vercel.com">
+                  Privacy Policy
+                </Footer.Link>
+                <Footer.Link href="https://vercel.com">
+                  Terms & Conditions
+                </Footer.Link>
               </Footer.LinkGroup>
             </div>
           </div>
@@ -70,11 +74,11 @@ export default function MyFooter() {
         <div className="w-full sm:flex sm:items-center sm:justify-between">
           <Footer.Copyright href="#" by="Movie Finder™" year={2023} />
           <div className="mt-4 flex space-x-6 sm:mt-0 sm:justify-center">
-            <Footer.Icon href="#" icon={BsFacebook} />
-            <Footer.Icon href="#" icon={BsInstagram} />
-            <Footer.Icon href="#" icon={BsTwitter} />
-            <Footer.Icon href="#" icon={BsGithub} />
-            <Footer.Icon href="#" icon={BsDribbble} />
+            <Footer.Icon href="https://facebook.com" icon={BsFacebook} />
+            <Footer.Icon href="https://instagram.com" icon={BsInstagram} />
+            <Footer.Icon href="https://twitter.com" icon={BsTwitter} />
+            <Footer.Icon href="https://github.com" icon={BsGithub} />
+            <Footer.Icon href="https://dribble.com" icon={BsDribbble} />
           </div>
         </div>
       </div>
