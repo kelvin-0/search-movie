@@ -1,7 +1,7 @@
 import Router from 'next/router'
 import { useRef } from 'react'
 
-export default function Search() {
+export default function Search({ id }: { id: string }) {
   const searchRef = useRef<HTMLInputElement | null>(null)
   return (
     <div className="relative w-5/6 mx-auto">
@@ -24,7 +24,7 @@ export default function Search() {
       </div>
       <input
         type="search"
-        id="default-search"
+        id={`${id}`}
         className="block w-full p-4 pl-10 text-sm text-gray-900 border bg-gray-50 border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-950 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
         placeholder="Search..."
         required
