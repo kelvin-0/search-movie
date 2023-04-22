@@ -1,18 +1,10 @@
-import { GetServerSideProps } from 'next'
+import { GetServerSideProps, GetStaticPaths, GetStaticProps } from 'next'
 import Head from 'next/head'
 import Layout from '@/components/Layout'
 import MyImage from '@/components/MyImage'
 import BackgroundImage from '@/components/BackgroundImage'
 
-export const getServerSideProps: GetServerSideProps = async ({
-  req,
-  res,
-  params,
-}) => {
-  res.setHeader(
-    'Cache-Control',
-    'public, s-maxage=86400, stale-while-revalidate=59',
-  )
+export const getStaticProps: GetStaticProps = async ({ params }) => {
   const fetchMovie = await fetch(
     `${process.env.NEXT_PUBLIC_API_PATH}/movie/${params?.movieId}?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US`,
   )
@@ -21,6 +13,14 @@ export const getServerSideProps: GetServerSideProps = async ({
     props: {
       searchResults,
     },
+    revalidate: 86400,
+  }
+}
+
+export const getStaticPaths = async () => {
+  return {
+    paths: [{ params: { movieId: '760741' } }],
+    fallback: 'blocking',
   }
 }
 
