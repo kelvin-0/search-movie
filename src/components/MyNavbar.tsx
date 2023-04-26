@@ -1,11 +1,40 @@
-import { useState } from 'react'
 import Link from 'next/link'
+import { motion, useScroll, useMotionValueEvent } from 'framer-motion'
 import ThemeSwitch from './ThemeSwitch'
 import Search from './Search'
+import { useState } from 'react'
+
+const navbarVariants = {
+  scrollBottom: {
+    opacity: 1,
+    y: 0,
+  },
+  hidden: {
+    opacity: 0,
+    y: -100,
+  },
+  top: {
+    opacity: [0, 1],
+    y: [20, 0],
+  },
+}
 
 export default function MyNavbar() {
+  const [isTop, setIsTransparent] = useState(false)
+  const { scrollY } = useScroll()
+  useMotionValueEvent(scrollY, 'change', (latest) => {
+    setIsTransparent(latest === 0)
+  })
   return (
-    <nav className="max-w-[1350px] sticky left-0 z-20 w-full top-0 bg-white border-gray-200 dark:bg-black">
+    <motion.nav
+      variants={navbarVariants}
+      initial="hidden"
+      animate={isTop ? 'top' : 'scrollBottom'}
+      transition={{
+        duration: 0.2,
+      }}
+      className={`max-w-[1350px] sticky left-0 z-20 w-full top-0 bg-white dark:bg-black `}
+    >
       <div className="max-w-screen-xl flex flex-col sm:flex-row flex-wrap items-center justify-between mx-auto p-4">
         <Link href="/" className="flex items-center dark:text-white gap-3">
           {/* <Image
@@ -38,6 +67,6 @@ export default function MyNavbar() {
           <Search id={'navbar search bar'} />
         </div>
       </div>
-    </nav>
+    </motion.nav>
   )
 }

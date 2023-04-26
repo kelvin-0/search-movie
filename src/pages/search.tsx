@@ -66,7 +66,11 @@ const Search: React.FC<SearchResults> = ({
                 {searchResults.results &&
                   searchResults.results.map((m: any) => {
                     return (
-                      <Link key={m.id} href={`movies/${m.id}`}>
+                      <Link
+                        key={m.id}
+                        href={`movies/${m.id}`}
+                        className="w-full sm:w-fit"
+                      >
                         <div className="overflow-hidden flex flex-col sm:flex-row w-4/5 mx-auto items-center sm:w-96 sm:h-[200px] bg-white border border-gray-200 rounded-lg shadow dark:bg-black dark:border-gray-700">
                           <MyImage
                             id={m.id}

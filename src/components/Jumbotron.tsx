@@ -4,7 +4,7 @@ import Search from './Search'
 export default function Jumbotron() {
   return (
     <BackgroundImage isRemote={false} id="decoration" path="/decoration.jpg">
-      <div className="px-12 mx-auto max-w-screen-xl text-center py-14 md:py-24 ">
+      <div className="px-12 mx-auto max-w-screen-xl text-center py-14 md:py-24">
         <h1 className="mb-4 text-2xl sm:text-4xl font-extrabold tracking-tight leading-none text-slate-950 md:text-5xl lg:text-6xl dark:text-slate-50">
           Find Your Next Favorite Movie with Just a Few Clicks!
         </h1>
