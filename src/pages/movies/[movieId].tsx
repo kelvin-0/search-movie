@@ -1,17 +1,48 @@
-import { GetServerSideProps, GetStaticPaths, GetStaticProps } from 'next'
+import { GetStaticProps } from 'next'
 import Head from 'next/head'
 import Layout from '@/components/Layout'
 import MyImage from '@/components/MyImage'
 import BackgroundImage from '@/components/BackgroundImage'
+import { Movie } from '@/types/apiTypes'
+
+type Genre = { id: number; name: string }
+type SpokenLanguage = {
+  iso_639_1: string
+  name: string
+  english_name: string
+}
+
+type MovieDetail = Movie & {
+  adults: boolean
+  genres: Genre[]
+  spoken_languages: SpokenLanguage[]
+  runtime: number
+  overview: string
+  release_date: string
+  original_title: string
+  status: string
+  tagline: string
+  video: boolean
+}
+
+type SearchResult = {
+  movie: MovieDetail
+}
+
+function toHoursAndMinutes(totalMinutes: number): string {
+  const hours = Math.floor(totalMinutes / 60)
+  const minutes = totalMinutes & 60
+  return `${hours}h ${minutes}m`
+}
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const fetchMovie = await fetch(
     `${process.env.NEXT_PUBLIC_API_PATH}/movie/${params?.movieId}?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US`,
   )
-  const searchResults = await fetchMovie.json()
+  const movie = await fetchMovie.json()
   return {
     props: {
-      searchResults,
+      movie,
     },
     revalidate: 86400,
   }
@@ -24,49 +55,36 @@ export const getStaticPaths = async () => {
   }
 }
 
-const Movie: React.FC<any> = ({ searchResults }) => {
-  const releasedDate = new Date(searchResults.release_date)
-  const genres = searchResults.genres.map(
-    (genre: { id: number; name: string }) => genre.name,
+const Movie: React.FC<SearchResult> = ({ movie }) => {
+  const title = `${movie.title} - Movie Finder`
+  const releasedDate = new Date(movie.release_date)
+  const genres = movie.genres.map((genre: Genre) => genre.name)
+  const languages = movie.spoken_languages.map(
+    (language: SpokenLanguage) => language.english_name,
   )
-  const languages = searchResults.spoken_languages.map(
-    (language: { name: string; english_name: string }) => language.english_name,
-  )
-  function toHoursAndMinutes(totalMinutes: number): string {
-    const hours = Math.floor(totalMinutes / 60)
-    const minutes = totalMinutes & 60
-    return `${hours}h ${minutes}m`
-  }
   return (
     <>
       <Head>
-        <title>{searchResults.title} - Movie Finder</title>
-        <meta
-          name="description"
-          content={`${searchResults.title} movie detail`}
-        />
+        <title>{title}</title>
+        <meta name="description" content={`${movie.title} movie detail`} />
       </Head>
       <Layout>
-        <BackgroundImage
-          id={searchResults.id}
-          isRemote
-          path={searchResults.backdrop_path}
-        >
+        <BackgroundImage id={movie.id} isRemote path={movie.backdrop_path}>
           <div className="flex px-10 py-8 flex-col md:flex-row items-center m-auto gap-5">
             <MyImage
               isLarge
-              id={searchResults.id}
-              title={searchResults.title}
-              poster_path={searchResults.poster_path}
+              id={movie.id}
+              title={movie.title}
+              poster_path={movie.poster_path}
             />
             <div className="text-slate-700 dark:text-gray-300 max-w-2xl">
               <h1 className="text-slate-900 dark:text-yellow-200 text-center md:text-left text-2xl sm:text-3xl font-bold mb-3">
-                {searchResults.original_title}{' '}
+                {movie.original_title}{' '}
                 <span>({releasedDate.getFullYear()})</span>
               </h1>
               <div className="flex items-center gap-5 mb-6 justify-center text-base sm:text-lg md:justify-start flex-wrap">
                 <span className="border p-1 rounded-sm border-slate-900 dark:border-slate-300">
-                  {searchResults.adults ? '18+' : '13+'}
+                  {movie.adults ? '18+' : '13+'}
                 </span>
                 <span className="flex gap-2 items-center">
                   <svg
@@ -101,17 +119,17 @@ const Movie: React.FC<any> = ({ searchResults }) => {
                       d="M3.375 19.5h17.25m-17.25 0a1.125 1.125 0 01-1.125-1.125M3.375 19.5h1.5C5.496 19.5 6 18.996 6 18.375m-3.75 0V5.625m0 12.75v-1.5c0-.621.504-1.125 1.125-1.125m18.375 2.625V5.625m0 12.75c0 .621-.504 1.125-1.125 1.125m1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125m0 3.75h-1.5A1.125 1.125 0 0118 18.375M20.625 4.5H3.375m17.25 0c.621 0 1.125.504 1.125 1.125M20.625 4.5h-1.5C18.504 4.5 18 5.004 18 5.625m3.75 0v1.5c0 .621-.504 1.125-1.125 1.125M3.375 4.5c-.621 0-1.125.504-1.125 1.125M3.375 4.5h1.5C5.496 4.5 6 5.004 6 5.625m-3.75 0v1.5c0 .621.504 1.125 1.125 1.125m0 0h1.5m-1.5 0c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125m1.5-3.75C5.496 8.25 6 7.746 6 7.125v-1.5M4.875 8.25C5.496 8.25 6 8.754 6 9.375v1.5m0-5.25v5.25m0-5.25C6 5.004 6.504 4.5 7.125 4.5h9.75c.621 0 1.125.504 1.125 1.125m1.125 2.625h1.5m-1.5 0A1.125 1.125 0 0118 7.125v-1.5m1.125 2.625c-.621 0-1.125.504-1.125 1.125v1.5m2.625-2.625c.621 0 1.125.504 1.125 1.125v1.5c0 .621-.504 1.125-1.125 1.125M18 5.625v5.25M7.125 12h9.75m-9.75 0A1.125 1.125 0 016 10.875M7.125 12C6.504 12 6 12.504 6 13.125m0-2.25C6 11.496 5.496 12 4.875 12M18 10.875c0 .621-.504 1.125-1.125 1.125M18 10.875c0 .621.504 1.125 1.125 1.125m-2.25 0c.621 0 1.125.504 1.125 1.125m-12 5.25v-5.25m0 5.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125m-12 0v-1.5c0-.621-.504-1.125-1.125-1.125M18 18.375v-5.25m0 5.25v-1.5c0-.621.504-1.125 1.125-1.125M18 13.125v1.5c0 .621.504 1.125 1.125 1.125M18 13.125c0-.621.504-1.125 1.125-1.125M6 13.125v1.5c0 .621-.504 1.125-1.125 1.125M6 13.125C6 12.504 5.496 12 4.875 12m-1.5 0h1.5m-1.5 0c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125M19.125 12h1.5m0 0c.621 0 1.125.504 1.125 1.125v1.5c0 .621-.504 1.125-1.125 1.125m-17.25 0h1.5m14.25 0h1.5"
                     />
                   </svg>
-                  {toHoursAndMinutes(searchResults.runtime)}
+                  {toHoursAndMinutes(movie.runtime)}
                 </span>
-                <span>{searchResults.status}</span>
+                <span>{movie.status}</span>
                 <span></span>
               </div>
               <p className="text-xl sm:text-2xl font-bold dark:text-gray-500 text-slate-500 italic mb-6 text-center md:text-left">
-                &quot;{searchResults.tagline}&quot;
+                &quot;{movie.tagline}&quot;
               </p>
               <h2 className="text-lg sm:text-xl font-semibold">Overview</h2>
               <p className="text-sm sm:text-base mb-3 text-justify">
-                {searchResults.overview}
+                {movie.overview}
               </p>
               <div className="flex justify-between gap-2 flex-wrap text-sm sm:text-base">
                 <span className="font-bold">

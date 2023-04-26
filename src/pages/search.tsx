@@ -1,13 +1,19 @@
+import { GetServerSideProps } from 'next'
+import Head from 'next/head'
+import Link from 'next/link'
 import Autocompletion from '@/components/Autocompletion'
 import Layout from '@/components/Layout'
 import MyImage from '@/components/MyImage'
 import MyPagination from '@/components/MyPagination'
-import { GetServerSideProps } from 'next'
-import Head from 'next/head'
-import Link from 'next/link'
+import { Movies } from '@/types/apiTypes'
 
+type SearchResults = {
+  searchResults: Movies
+  text: string
+  page: string
+  language: string
+}
 export const getServerSideProps: GetServerSideProps = async ({
-  req,
   res,
   query,
 }) => {
@@ -15,12 +21,7 @@ export const getServerSideProps: GetServerSideProps = async ({
     'Cache-Control',
     'public, s-maxage=86400, stale-while-revalidate=59',
   )
-  const { text, page = '1', language = 'en-us' } = query
-  if (!text) {
-    return {
-      props: {},
-    }
-  }
+  const { text = '', page = '1', language = 'en-us' } = query
   const fetchSearchPs = await fetch(
     `${process.env.NEXT_PUBLIC_API_PATH}search/movie?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=${language}&page=${page}&query=${text}`,
   )
@@ -35,12 +36,11 @@ export const getServerSideProps: GetServerSideProps = async ({
   }
 }
 
-const Search: React.FC<any> = ({
+const Search: React.FC<SearchResults> = ({
   searchResults,
   text,
   page,
   language,
-  error,
 }) => {
   const resultsLength = searchResults?.results?.length
 
@@ -50,7 +50,7 @@ const Search: React.FC<any> = ({
         <title>{text} - Movie Finder</title>
         <meta
           name="description"
-          content={`Searching movies for {text} keyword`}
+          content={`Searching movies for ${text} keyword`}
         />
       </Head>
       <Layout>

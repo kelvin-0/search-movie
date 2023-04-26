@@ -1,7 +1,16 @@
 import Link from 'next/link'
 import { usePagination, DOTS } from '@/hooks/usePagination'
 
-const MyPagination = (props: any) => {
+type Pagination = {
+  totalPage: number
+  siblingCount?: number
+  currentPage: number
+  pageSize?: number
+  text: string
+  language: string
+}
+
+const MyPagination = (props: Pagination) => {
   const {
     totalPage,
     siblingCount = 1,

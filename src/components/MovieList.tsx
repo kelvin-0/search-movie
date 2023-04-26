@@ -1,7 +1,12 @@
 import Link from 'next/link'
 import MyImage from './MyImage'
+import { Movie } from '@/types/apiTypes'
 
-export default function MovieList({ movies, category }: any) {
+type MovieList = {
+  movies: Movie[]
+  category: string
+}
+const MovieList: React.FC<MovieList> = ({ movies, category }) => {
   const movieList = movies.map((movie: any) => {
     return (
       <Link key={movie.id} href={`movies/${movie.id}`}>
@@ -25,3 +30,4 @@ export default function MovieList({ movies, category }: any) {
     </section>
   )
 }
+export default MovieList
