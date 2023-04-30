@@ -76,6 +76,7 @@ const Search: React.FC<SearchResults> = ({
                             id={m.id}
                             title={m.title}
                             poster_path={m.poster_path}
+                            unoptimized={true}
                           />
                           <div className="p-5 ">
                             <h5 className="mb-2 text-center sm:text-left text-xl font-bold tracking-tight text-gray-900 dark:text-white">

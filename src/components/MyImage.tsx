@@ -4,9 +4,16 @@ type MovieProp = {
   id: string
   title: string
   poster_path: string
-  isLarge?: Boolean
+  isLarge?: boolean
+  unoptimized?: boolean
 }
-const MyImage: React.FC<MovieProp> = ({ id, title, poster_path, isLarge }) => {
+const MyImage: React.FC<MovieProp> = ({
+  unoptimized,
+  id,
+  title,
+  poster_path,
+  isLarge,
+}) => {
   let sizeClassname: string = isLarge
     ? 'w-[130px] h-[200px] sm:w-[300px] sm:h-[450px]'
     : 'w-[130px] h-[200px]'
@@ -34,6 +41,7 @@ const MyImage: React.FC<MovieProp> = ({ id, title, poster_path, isLarge }) => {
         <span className="sr-only">Loading...</span>
       </div>
       <Image
+        unoptimized={unoptimized}
         className="snap-center rounded-md object-cover cursor-pointer"
         fill
         src={`https://image.tmdb.org/t/p/${

@@ -12,6 +12,7 @@ const MovieList: React.FC<MovieList> = ({ movies, category }) => {
     return (
       <Link key={movie.id} href={`movies/${movie.id}`}>
         <MyImage
+          unoptimized={true}
           key={movie.id}
           title={movie.title}
           id={movie.id}
